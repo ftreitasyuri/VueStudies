@@ -1,34 +1,14 @@
 {
   "produtos": [
     {
-      "id": 1,
-      "produto": "Iphone 15",
-      "valor": 7000
+      "id": "1",
+      "produto": "Iphone 15 HelloWorld",
+      "valor": "8500"
     },
     {
-      "id": 2,
+      "id": "2",
       "produto": "Galaxy S25",
       "valor": 5500
-    },
-    {
-      "id": 3,
-      "produto": "Redmi Note 16",
-      "valor": 2500
-    },
-    {
-      "id": 0,
-      "produto": "Galaxy",
-      "valor": "1233"
-    },
-    {
-      "id": 0,
-      "produto": "Galaxy A23",
-      "valor": "1499"
-    },
-    {
-      "id": 0,
-      "produto": "fsdfdsfsd",
-      "valor": "1213213"
     }
   ]
 }
