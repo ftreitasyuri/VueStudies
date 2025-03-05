@@ -1,0 +1,8 @@
+Para criar a API:
+npm install json-server
+DOCS: https://www.npmjs.com/package/json-server
+_________________________________________________
+
+Comando para executar a API
+npx json-server produtos.json
+_________________________________________________
