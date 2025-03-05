@@ -64,3 +64,14 @@ var products = [
     }
 ];
  
+const SelfServiceMachine = {
+// TODA A LÓGICA VAI FICAR NESSE BLOCO
+    data(){
+        return{
+            // products: window.products
+            products: window.products
+        }
+    }
+};
+
+Vue.createApp(SelfServiceMachine).mount('#app');
