@@ -14,7 +14,7 @@
 // import Exemplo from './components/Exemplo11PropsEstaticos.vue';
 // import Exemplo from './components/Exemplo12PropsDinamicos1.vue';
 // import Exemplo from './components/Exemplo13Rotas.vue';
-import Exemplo from './components/Exemplo15BootStrap.vue';
+import Exemplo from './components/Exemplo16API.vue';
 
 </script>
 
