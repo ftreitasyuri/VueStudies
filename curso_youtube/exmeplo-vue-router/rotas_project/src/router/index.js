@@ -1,23 +1,52 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+// import HomeView from '../views/HomeView.vue'
+import Inicio from '../views/Inicio.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: HomeView
+      name: 'inicio',
+      component: Inicio
     },
     {
-      path: '/about',
-      name: 'about',
+      path: '/sobre',
+      name: 'sobre',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
+      component: () => import('../views/Sobre.vue')
+    },
+    {
+      path: '/restrito',
+      name: 'restrito',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/Restrito.vue'),
+      meta: { autenticar: true }
     }
   ]
 })
 
+// Função para privar rotas
+router.beforeEach((to, from, next) => {
+
+  // Condicional 
+  if(to.matched.some(record => record.meta.autenticar)){
+
+    if(localStorage.getItem('nome') === null) {
+      next({
+        path: '/',
+        query: { redirect: to.fullPath}
+      });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+
+});
 export default router
