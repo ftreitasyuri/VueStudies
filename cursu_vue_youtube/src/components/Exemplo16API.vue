@@ -32,6 +32,7 @@ let obj = ref({ 'id': 0, 'produto': "", 'valor': 0 });
 
 // Funções
 
+// Função cadastrar
 function cadastrar(event) {
   // alert('Teste')
 
@@ -73,7 +74,73 @@ function selecao(indice) {
   // modal.show()
 }
 
+// Função editar
+function editar() {
+  // alert('Teste')
 
+  // Requisição
+  fetch(`http://localhost:3000/produtos/${obj.value.id}`, {
+    method: 'PUT',
+    body: JSON.stringify(obj.value),
+    headers: { 'Content-type': 'application/json' }
+  })
+    .then(Requisicao => Requisicao.json())
+    // .then(retorno => console.log(retorno))
+    .then(retorno => {
+
+      // Obter o indice do vetor
+      let indiceProduto = produtos.value.findIndex(objP => {
+        return objP.id === retorno.id;
+      });
+
+      // Visibilidade botoes
+
+
+
+      // Editar um produto
+      produtos.value[indiceProduto] = produto;
+
+      // Limpar o form
+      obj.value.id = 0;
+      obj.value.produto = '';
+      obj.value.valor = 0;
+    })
+
+  btnCadastrar = true;
+
+}
+
+// Função remover
+
+function remover() {
+  // alert('Teste')
+
+  // Requisição
+  fetch(`http://localhost:3000/produtos/${obj.value.id}`, {
+    method: 'DELETE',
+    headers: { 'Content-type': 'application/json' }
+  })
+    .then(Requisicao => Requisicao.json())
+    // .then(retorno => console.log(retorno))
+    .then(() => {
+
+      // Obter o indice do vetor
+      let indiceProduto = produtos.value.findIndex(objP => {
+        return objP.id === obj.value.id;
+      });
+
+       // Remover do vetor
+      produtos.value.splice(indiceProduto,1);
+
+      // Limpar o form
+      obj.value.id = 0;
+      obj.value.produto = '';
+      obj.value.valor = 0;
+    })
+
+  btnCadastrar = true;
+
+}
 
 
 
@@ -84,7 +151,7 @@ function selecao(indice) {
 
 
   <!-- Formulário -->
-  <form action="" @submit="cadastrar">
+  <form action="">
     <input type="hidden" name="" id="" v-model="obj.id">
     <!-- debug -->
     <!-- <p>{{ obj }}</p> -->
@@ -92,9 +159,11 @@ function selecao(indice) {
     <input class="form-control" type="text" v-model="obj.produto" placeholder="Produto">
     <input class="form-control" type="number" v-model="obj.valor" placeholder="Valor">
 
-    <input v-if="btnCadastrar" class="btn btn-primary" type="submit" value="Cadastrar">
-    <input v-if="!btnCadastrar" class="btn btn-secondary espacoBTN" type="submit" value="Editar">
-    <input v-if="!btnCadastrar" class="btn btn-danger" type="submit" value="Excluir">
+    <input v-if="btnCadastrar" @click="cadastrar" class="btn btn-primary" type="submit" value="Cadastrar">
+
+    <input v-if="!btnCadastrar" @click="editar" class="btn btn-secondary espacoBTN" type="submit" value="Editar">
+
+    <input v-if="!btnCadastrar" @click="remover" class="btn btn-danger" type="submit" value="Excluir">
   </form>
 
   <!-- Tabela -->
@@ -136,6 +205,8 @@ function selecao(indice) {
           <p><strong>Valor:</strong> R$ {{ obj.valor }}</p>
         </div>
         <div class="modal-footer">
+          <input v-if="!btnCadastrar" class="btn btn-secondary espacoBTN" type="submit" value="Editar">
+          <input v-if="!btnCadastrar" class="btn btn-danger" type="submit" value="Excluir">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
         </div>
       </div>
@@ -160,7 +231,7 @@ input {
 
 }
 
-.espacoBTN{
+.espacoBTN {
   margin-left: 5px;
   margin-right: 5px;
 }
